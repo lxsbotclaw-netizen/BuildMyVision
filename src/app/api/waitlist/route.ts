@@ -20,7 +20,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const { name, email, address, contactType, projectDescription } = parsed.data;
+    const {
+      name,
+      email,
+      phone,
+      address,
+      contactTypes,
+      projectDescription,
+      wizardSelections,
+    } = parsed.data;
     const db = getDb();
 
     // Duplikat-Check: E-Mail bereits bestätigt oder pending?
@@ -61,9 +69,12 @@ export async function POST(request: Request) {
     await db.insert(waitlistEntries).values({
       name,
       email: email.toLowerCase(),
-      address,
-      contactType,
-      projectDescription,
+      phone: phone || null,
+      address: address || null,
+      contactTypes: contactTypes.join(","),
+      projectDescription: projectDescription || null,
+      wizardSelections: wizardSelections || null,
+      privacyAccepted: new Date(),
       confirmationToken: token,
       tokenExpiresAt,
     });

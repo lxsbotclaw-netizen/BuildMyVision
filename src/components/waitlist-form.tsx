@@ -1,26 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ProjectWizard } from "@/components/project-wizard";
 import { MAX_DESCRIPTION_LENGTH } from "@/lib/constants";
+import type { ContactType } from "@/db/schema";
+
+const CONTACT_OPTIONS: { value: ContactType; label: string }[] = [
+  { value: "privatperson", label: "Privatperson" },
+  { value: "startup", label: "Startup / Gründer" },
+  { value: "unternehmen", label: "Unternehmen" },
+  { value: "creator", label: "Creator / Influencer" },
+];
 
 interface FieldErrors {
   name?: string[];
   email?: string[];
+  phone?: string[];
   address?: string[];
-  contactType?: string[];
+  contactTypes?: string[];
   projectDescription?: string[];
+  wizardSelections?: string[];
+  privacyAccepted?: string[];
 }
 
 export function WaitlistForm() {
@@ -30,6 +36,15 @@ export function WaitlistForm() {
     message: string;
   } | null>(null);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [selectedTypes, setSelectedTypes] = useState<ContactType[]>([]);
+  const [wizardValue, setWizardValue] = useState("");
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+
+  function toggleContactType(type: ContactType) {
+    setSelectedTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type],
+    );
+  }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,9 +56,13 @@ export function WaitlistForm() {
     const data = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
-      address: formData.get("address") as string,
-      contactType: formData.get("contactType") as string,
-      projectDescription: formData.get("projectDescription") as string,
+      phone: (formData.get("phone") as string) || "",
+      address: (formData.get("address") as string) || "",
+      contactTypes: selectedTypes,
+      projectDescription:
+        (formData.get("projectDescription") as string) || "",
+      wizardSelections: wizardValue,
+      privacyAccepted,
     };
 
     try {
@@ -68,6 +87,9 @@ export function WaitlistForm() {
 
       setResult({ type: "success", message: body.message });
       (event.target as HTMLFormElement).reset();
+      setSelectedTypes([]);
+      setWizardValue("");
+      setPrivacyAccepted(false);
     } catch {
       setResult({
         type: "error",
@@ -93,9 +115,12 @@ export function WaitlistForm() {
                 <p className="font-medium">{result.message}</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                {/* Name (Pflicht) */}
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="name">
+                    Name <span className="text-destructive">*</span>
+                  </Label>
                   <Input
                     id="name"
                     name="name"
@@ -103,12 +128,17 @@ export function WaitlistForm() {
                     required
                   />
                   {fieldErrors.name && (
-                    <p className="text-sm text-destructive">{fieldErrors.name[0]}</p>
+                    <p className="text-sm text-destructive">
+                      {fieldErrors.name[0]}
+                    </p>
                   )}
                 </div>
 
+                {/* E-Mail (Pflicht) */}
                 <div className="space-y-2">
-                  <Label htmlFor="email">E-Mail</Label>
+                  <Label htmlFor="email">
+                    E-Mail <span className="text-destructive">*</span>
+                  </Label>
                   <Input
                     id="email"
                     name="email"
@@ -117,51 +147,112 @@ export function WaitlistForm() {
                     required
                   />
                   {fieldErrors.email && (
-                    <p className="text-sm text-destructive">{fieldErrors.email[0]}</p>
+                    <p className="text-sm text-destructive">
+                      {fieldErrors.email[0]}
+                    </p>
                   )}
                 </div>
 
+                {/* Telefon (Optional) */}
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Telefon</Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="+49 123 456789"
+                  />
+                  {fieldErrors.phone && (
+                    <p className="text-sm text-destructive">
+                      {fieldErrors.phone[0]}
+                    </p>
+                  )}
+                </div>
+
+                {/* Anschrift (Optional) */}
                 <div className="space-y-2">
                   <Label htmlFor="address">Anschrift</Label>
                   <Input
                     id="address"
                     name="address"
                     placeholder="Musterstr. 1, 10115 Berlin"
-                    required
                   />
                   {fieldErrors.address && (
-                    <p className="text-sm text-destructive">{fieldErrors.address[0]}</p>
+                    <p className="text-sm text-destructive">
+                      {fieldErrors.address[0]}
+                    </p>
                   )}
                 </div>
 
+                {/* Kontakttyp — Mehrfachauswahl */}
                 <div className="space-y-2">
-                  <Label htmlFor="contactType">Ich bin...</Label>
-                  <Select name="contactType" required>
-                    <SelectTrigger id="contactType">
-                      <SelectValue placeholder="Bitte wählen" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="unternehmen">Unternehmen</SelectItem>
-                      <SelectItem value="privatperson">Privatperson</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {fieldErrors.contactType && (
-                    <p className="text-sm text-destructive">{fieldErrors.contactType[0]}</p>
+                  <Label>
+                    Ich bin... <span className="text-destructive">*</span>
+                  </Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {CONTACT_OPTIONS.map((option) => {
+                      const isSelected = selectedTypes.includes(option.value);
+                      return (
+                        <button
+                          key={option.value}
+                          type="button"
+                          onClick={() => toggleContactType(option.value)}
+                          className={`flex items-center gap-2 rounded-md border px-3 py-2.5 text-left text-sm transition-colors ${
+                            isSelected
+                              ? "border-primary bg-primary/5 text-foreground"
+                              : "border-border bg-background text-muted-foreground hover:bg-muted"
+                          }`}
+                        >
+                          <span
+                            className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border text-xs ${
+                              isSelected
+                                ? "border-primary bg-primary text-primary-foreground"
+                                : "border-border"
+                            }`}
+                          >
+                            {isSelected && "✓"}
+                          </span>
+                          {option.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {fieldErrors.contactTypes && (
+                    <p className="text-sm text-destructive">
+                      {fieldErrors.contactTypes[0]}
+                    </p>
                   )}
                 </div>
 
+                {/* Projekt-Wizard */}
+                <div className="space-y-2">
+                  <Label>Projekt-Wizard</Label>
+                  <p className="text-xs text-muted-foreground">
+                    Klicke dich durch und beschreibe dein Vorhaben in wenigen
+                    Schritten.
+                  </p>
+                  <ProjectWizard
+                    value={wizardValue}
+                    onChange={setWizardValue}
+                  />
+                </div>
+
+                {/* Freitext (Optional) */}
                 <div className="space-y-2">
                   <Label htmlFor="projectDescription">
-                    Projektwünsche & Beschreibung
+                    Freitext-Beschreibung
                   </Label>
                   <Textarea
                     id="projectDescription"
                     name="projectDescription"
-                    placeholder="Beschreibe kurz dein Vorhaben..."
-                    rows={5}
+                    placeholder="Beschreibe dein Vorhaben in eigenen Worten..."
+                    rows={4}
                     maxLength={MAX_DESCRIPTION_LENGTH}
-                    required
                   />
+                  <p className="text-xs text-muted-foreground">
+                    Wizard oder Freitext — mindestens eines muss ausgefüllt
+                    sein.
+                  </p>
                   {fieldErrors.projectDescription && (
                     <p className="text-sm text-destructive">
                       {fieldErrors.projectDescription[0]}
@@ -169,13 +260,48 @@ export function WaitlistForm() {
                   )}
                 </div>
 
+                {/* Datenschutz-Checkbox */}
+                <div className="space-y-2">
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={privacyAccepted}
+                      onChange={(e) => setPrivacyAccepted(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 shrink-0 rounded border-border"
+                    />
+                    <span className="text-sm text-muted-foreground">
+                      Ich habe die{" "}
+                      <Link
+                        href="/datenschutz"
+                        className="underline hover:text-foreground"
+                        target="_blank"
+                      >
+                        Datenschutzerklärung
+                      </Link>{" "}
+                      gelesen und stimme der Verarbeitung meiner Daten zu.{" "}
+                      <span className="text-destructive">*</span>
+                    </span>
+                  </label>
+                  {fieldErrors.privacyAccepted && (
+                    <p className="text-sm text-destructive">
+                      {fieldErrors.privacyAccepted[0]}
+                    </p>
+                  )}
+                </div>
+
+                {/* Fehler-Anzeige */}
                 {result?.type === "error" && (
                   <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
                     {result.message}
                   </div>
                 )}
 
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {/* Submit */}
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
                   {isSubmitting ? "Wird gesendet..." : "Jetzt eintragen"}
                 </Button>
 

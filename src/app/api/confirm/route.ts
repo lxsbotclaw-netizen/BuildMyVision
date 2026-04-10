@@ -34,7 +34,7 @@ export async function GET(request: Request) {
 
     const entry = entries[0];
 
-    // Bereits bestaetigt — trotzdem zur Erfolgsseite weiterleiten
+    // Bereits bestätigt — trotzdem zur Erfolgsseite weiterleiten
     if (entry.status === "confirmed") {
       return NextResponse.redirect(
         `${getBaseUrl()}/confirmed?status=already`,
@@ -62,13 +62,15 @@ export async function GET(request: Request) {
     await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: process.env.CONTACT_EMAIL!,
-      subject: `Neue bestaetigte Anfrage: ${entry.name}`,
+      subject: `Neue bestätigte Anfrage: ${entry.name}`,
       react: NotificationEmail({
         name: entry.name,
         email: entry.email,
+        phone: entry.phone,
         address: entry.address,
-        contactType: entry.contactType,
+        contactTypes: entry.contactTypes,
         projectDescription: entry.projectDescription,
+        wizardSelections: entry.wizardSelections,
         createdAt: entry.createdAt,
         confirmedAt: new Date(),
       }),

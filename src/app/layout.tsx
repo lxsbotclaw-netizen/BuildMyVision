@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "BuildMyVision — Von der Idee zur digitalen Realität",
   description:
-    "Du hast eine Idee für eine Webseite, Plattform oder digitales Produkt? Sichere dir deinen Platz auf unserer Warteliste.",
+    "Wir bauen digitale Produkte für Startups, Unternehmen und Creator — Webseiten, Plattformen, Web-Apps und KI-Lösungen.",
 };
 
 export default function RootLayout({

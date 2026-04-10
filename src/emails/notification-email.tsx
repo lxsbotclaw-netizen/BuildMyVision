@@ -12,9 +12,11 @@ import {
 interface NotificationEmailProps {
   name: string;
   email: string;
-  address: string;
-  contactType: string;
-  projectDescription: string;
+  phone: string | null;
+  address: string | null;
+  contactTypes: string;
+  projectDescription: string | null;
+  wizardSelections: string | null;
   createdAt: Date;
   confirmedAt: Date;
 }
@@ -22,9 +24,11 @@ interface NotificationEmailProps {
 export function NotificationEmail({
   name,
   email,
+  phone,
   address,
-  contactType,
+  contactTypes,
   projectDescription,
+  wizardSelections,
   createdAt,
   confirmedAt,
 }: NotificationEmailProps) {
@@ -40,7 +44,7 @@ export function NotificationEmail({
   return (
     <Html>
       <Head />
-      <Preview>Neue bestaetigte Anfrage von {name}</Preview>
+      <Preview>Neue bestätigte Anfrage von {name}</Preview>
       <Body style={bodyStyle}>
         <Container style={containerStyle}>
           <Heading style={headingStyle}>Neue Anfrage bestätigt</Heading>
@@ -55,16 +59,36 @@ export function NotificationEmail({
             <Text style={labelStyle}>E-Mail</Text>
             <Text style={valueStyle}>{email}</Text>
 
-            <Text style={labelStyle}>Anschrift</Text>
-            <Text style={valueStyle}>{address}</Text>
+            {phone && (
+              <>
+                <Text style={labelStyle}>Telefon</Text>
+                <Text style={valueStyle}>{phone}</Text>
+              </>
+            )}
+
+            {address && (
+              <>
+                <Text style={labelStyle}>Anschrift</Text>
+                <Text style={valueStyle}>{address}</Text>
+              </>
+            )}
 
             <Text style={labelStyle}>Typ</Text>
-            <Text style={valueStyle}>
-              {contactType === "unternehmen" ? "Unternehmen" : "Privatperson"}
-            </Text>
+            <Text style={valueStyle}>{contactTypes}</Text>
 
-            <Text style={labelStyle}>Projektwünsche</Text>
-            <Text style={valueStyle}>{projectDescription}</Text>
+            {wizardSelections && (
+              <>
+                <Text style={labelStyle}>Wizard-Auswahl</Text>
+                <Text style={valueStyle}>{wizardSelections}</Text>
+              </>
+            )}
+
+            {projectDescription && (
+              <>
+                <Text style={labelStyle}>Projektbeschreibung</Text>
+                <Text style={valueStyle}>{projectDescription}</Text>
+              </>
+            )}
 
             <Text style={labelStyle}>Registriert am</Text>
             <Text style={valueStyle}>{formatDate(createdAt)}</Text>
