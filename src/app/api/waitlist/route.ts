@@ -65,7 +65,24 @@ export async function POST(request: Request) {
     const baseUrl = getBaseUrl();
     const confirmUrl = `${baseUrl}/api/confirm?token=${token}`;
 
-    // Eintrag speichern
+    // Bestätigungsmail zuerst senden — DB-Eintrag nur bei Erfolg
+    const resend = getResend();
+    const emailResult = await resend.emails.send({
+      from: process.env.EMAIL_FROM!,
+      to: email.toLowerCase(),
+      subject: "Bitte bestätige deine Anfrage bei BuildMyVision",
+      react: ConfirmationEmail({ name, confirmUrl }),
+    });
+
+    if (emailResult.error) {
+      console.error("Resend-Fehler:", emailResult.error);
+      return NextResponse.json(
+        { error: "E-Mail konnte nicht gesendet werden. Bitte versuche es später erneut." },
+        { status: 502 },
+      );
+    }
+
+    // E-Mail erfolgreich — jetzt DB-Eintrag speichern
     await db.insert(waitlistEntries).values({
       name,
       email: email.toLowerCase(),
@@ -77,15 +94,6 @@ export async function POST(request: Request) {
       privacyAccepted: new Date(),
       confirmationToken: token,
       tokenExpiresAt,
-    });
-
-    // Bestätigungsmail senden
-    const resend = getResend();
-    await resend.emails.send({
-      from: process.env.EMAIL_FROM!,
-      to: email.toLowerCase(),
-      subject: "Bitte bestätige deine Anfrage bei BuildMyVision",
-      react: ConfirmationEmail({ name, confirmUrl }),
     });
 
     return NextResponse.json(
