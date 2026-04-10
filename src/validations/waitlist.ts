@@ -8,13 +8,13 @@ export const waitlistSchema = z.object({
     .max(100, "Name darf maximal 100 Zeichen lang sein"),
   email: z
     .string()
-    .email("Bitte eine gueltige E-Mail-Adresse eingeben"),
+    .email("Bitte eine gültige E-Mail-Adresse eingeben"),
   address: z
     .string()
-    .min(5, "Bitte eine vollstaendige Anschrift eingeben")
+    .min(5, "Bitte eine vollständige Anschrift eingeben")
     .max(300, "Anschrift darf maximal 300 Zeichen lang sein"),
   contactType: z.enum(["unternehmen", "privatperson"], {
-    error: "Bitte Unternehmen oder Privatperson waehlen",
+    error: "Bitte Unternehmen oder Privatperson wählen",
   }),
   projectDescription: z
     .string()

@@ -4,7 +4,7 @@ const features = [
   {
     title: "Webseiten",
     description:
-      "Moderne, responsive Webseiten die auf allen Geraeten perfekt aussehen.",
+      "Moderne, responsive Webseiten die auf allen Geräten perfekt aussehen.",
   },
   {
     title: "Plattformen",
@@ -14,7 +14,7 @@ const features = [
   {
     title: "Web-Apps",
     description:
-      "Interaktive Anwendungen die komplexe Geschaeftsprozesse digitalisieren.",
+      "Interaktive Anwendungen die komplexe Geschäftsprozesse digitalisieren.",
   },
 ] as const;
 
@@ -27,7 +27,7 @@ export function FeaturesSection() {
         </h2>
         <p className="mx-auto mb-12 max-w-xl text-center text-muted-foreground">
           Egal ob einfache Landingpage oder komplexe Plattform — wir finden die
-          passende Loesung fuer dein Vorhaben.
+          passende Lösung für dein Vorhaben.
         </p>
         <div className="grid gap-6 md:grid-cols-3">
           {features.map((feature) => (

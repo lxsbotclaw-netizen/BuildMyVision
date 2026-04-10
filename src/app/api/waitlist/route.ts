@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     const { name, email, address, contactType, projectDescription } = parsed.data;
     const db = getDb();
 
-    // Duplikat-Check: E-Mail bereits bestaetigt oder pending?
+    // Duplikat-Check: E-Mail bereits bestätigt oder pending?
     const existing = await db
       .select({ id: waitlistEntries.id, status: waitlistEntries.status })
       .from(waitlistEntries)
@@ -45,9 +45,9 @@ export async function POST(request: Request) {
           { status: 409 },
         );
       }
-      // Bereits pending — Hinweis auf Bestaetigungsmail
+      // Bereits pending — Hinweis auf Bestätigungsmail
       return NextResponse.json(
-        { error: "Eine Bestaetigungsmail wurde bereits gesendet. Bitte pruefe dein Postfach." },
+        { error: "Eine Bestätigungsmail wurde bereits gesendet. Bitte prüfe dein Postfach." },
         { status: 409 },
       );
     }
@@ -68,23 +68,23 @@ export async function POST(request: Request) {
       tokenExpiresAt,
     });
 
-    // Bestaetigungsmail senden
+    // Bestätigungsmail senden
     const resend = getResend();
     await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: email.toLowerCase(),
-      subject: "Bitte bestaetige deine Anfrage bei BuildMyVision",
+      subject: "Bitte bestätige deine Anfrage bei BuildMyVision",
       react: ConfirmationEmail({ name, confirmUrl }),
     });
 
     return NextResponse.json(
-      { message: "Wir haben dir eine Bestaetigungsmail gesendet. Bitte pruefe dein Postfach." },
+      { message: "Wir haben dir eine Bestätigungsmail gesendet. Bitte prüfe dein Postfach." },
       { status: 201 },
     );
   } catch (error) {
     console.error("Waitlist POST Fehler:", error);
     return NextResponse.json(
-      { error: "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es spaeter erneut." },
+      { error: "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es später erneut." },
       { status: 500 },
     );
   }

@@ -19,13 +19,13 @@ export function ConfirmationEmail({ name, confirmUrl }: ConfirmationEmailProps) 
   return (
     <Html>
       <Head />
-      <Preview>Bestaetige deine Anfrage bei BuildMyVision</Preview>
+      <Preview>Bestätige deine Anfrage bei BuildMyVision</Preview>
       <Body style={bodyStyle}>
         <Container style={containerStyle}>
           <Heading style={headingStyle}>BuildMyVision</Heading>
           <Text style={textStyle}>Hallo {name},</Text>
           <Text style={textStyle}>
-            vielen Dank fuer deine Anfrage. Bitte bestaetige deine E-Mail-Adresse,
+            vielen Dank für deine Anfrage. Bitte bestätige deine E-Mail-Adresse,
             indem du auf den folgenden Link klickst:
           </Text>
           <Section style={buttonContainerStyle}>
@@ -34,7 +34,7 @@ export function ConfirmationEmail({ name, confirmUrl }: ConfirmationEmailProps) 
             </Link>
           </Section>
           <Text style={smallTextStyle}>
-            Dieser Link ist 24 Stunden gueltig. Falls du diese Anfrage nicht
+            Dieser Link ist 24 Stunden gültig. Falls du diese Anfrage nicht
             gestellt hast, kannst du diese E-Mail ignorieren.
           </Text>
           <Text style={smallTextStyle}>

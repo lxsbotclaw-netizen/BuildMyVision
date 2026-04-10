@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { TOKEN_EXPIRY_HOURS } from "./constants";
 
-/** Generiert einen kryptographisch sicheren Bestaetigungstoken */
+/** Generiert einen kryptographisch sicheren Bestätigungstoken */
 export function generateConfirmationToken(): string {
   return randomUUID();
 }
@@ -13,7 +13,7 @@ export function getTokenExpiryDate(): Date {
   return expiry;
 }
 
-/** Prueft ob ein Token abgelaufen ist */
+/** Prüft ob ein Token abgelaufen ist */
 export function isTokenExpired(expiresAt: Date): boolean {
   return new Date() > expiresAt;
 }

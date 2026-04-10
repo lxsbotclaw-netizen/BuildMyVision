@@ -9,7 +9,7 @@ export function HeroSection() {
         <span className="text-primary">digitalen Realität</span>
       </h1>
       <p className="max-w-xl text-lg text-muted-foreground md:text-xl">
-        Du hast eine Idee fuer eine Webseite, Plattform oder digitales Produkt?
+        Du hast eine Idee für eine Webseite, Plattform oder digitales Produkt?
         Wir setzen sie um. Sichere dir jetzt deinen Platz auf unserer Warteliste.
       </p>
       <a

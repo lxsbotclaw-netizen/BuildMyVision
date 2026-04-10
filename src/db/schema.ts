@@ -6,14 +6,14 @@ export const contactTypeEnum = pgEnum("contact_type", [
   "privatperson",
 ]);
 
-/** Verifizierungsstatus fuer Double-Opt-In */
+/** Verifizierungsstatus für Double-Opt-In */
 export const verificationStatusEnum = pgEnum("verification_status", [
   "pending",
   "confirmed",
   "expired",
 ]);
 
-/** Wartelisten-Eintraege */
+/** Wartelisten-Einträge */
 export const waitlistEntries = pgTable("waitlist_entries", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: text("name").notNull(),
