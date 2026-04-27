@@ -306,8 +306,7 @@ export function WaitlistForm() {
                 </Button>
 
                 <p className="text-center text-xs text-muted-foreground">
-                  Du erhältst eine Bestätigungsmail. Deine Daten werden
-                  vertraulich behandelt.
+                  Deine Daten werden vertraulich behandelt.
                 </p>
               </form>
             )}

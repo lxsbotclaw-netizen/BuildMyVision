@@ -1,11 +1,4 @@
-import { pgTable, text, timestamp, uuid, pgEnum } from "drizzle-orm/pg-core";
-
-/** Verifizierungsstatus für Double-Opt-In */
-export const verificationStatusEnum = pgEnum("verification_status", [
-  "pending",
-  "confirmed",
-  "expired",
-]);
+import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 /** Gültige Kontakttypen */
 export const CONTACT_TYPES = [
@@ -28,9 +21,5 @@ export const waitlistEntries = pgTable("waitlist_entries", {
   projectDescription: text("project_description"),
   wizardSelections: text("wizard_selections"),
   privacyAccepted: timestamp("privacy_accepted", { withTimezone: true }).notNull(),
-  status: verificationStatusEnum("status").default("pending").notNull(),
-  confirmationToken: text("confirmation_token").notNull().unique(),
-  tokenExpiresAt: timestamp("token_expires_at", { withTimezone: true }).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-  confirmedAt: timestamp("confirmed_at", { withTimezone: true }),
 });
