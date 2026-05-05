@@ -23,3 +23,12 @@ export const waitlistEntries = pgTable("waitlist_entries", {
   privacyAccepted: timestamp("privacy_accepted", { withTimezone: true }).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
+
+/** Admin-Account für /boss — Single-Slot, max. 1 Row */
+export const admins = pgTable("admins", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  username: text("username").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  lastLoginAt: timestamp("last_login_at", { withTimezone: true }),
+});

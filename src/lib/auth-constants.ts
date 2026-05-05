@@ -7,5 +7,8 @@ export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 8;
 /** Login-Pfad für den Admin-Bereich */
 export const LOGIN_PATH = "/boss/login";
 
+/** Setup-Pfad für initiale Admin-Erstellung / Recovery */
+export const SETUP_PATH = "/boss/setup";
+
 /** Pfad-Präfix für den geschützten Admin-Bereich */
 export const BOSS_PATH_PREFIX = "/boss";

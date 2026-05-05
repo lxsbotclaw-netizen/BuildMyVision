@@ -8,6 +8,13 @@
       "when": 1777298659748,
       "tag": "0000_lowly_the_captain",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1777981135493,
+      "tag": "0001_simple_killmonger",
+      "breakpoints": true
     }
   ]
 }

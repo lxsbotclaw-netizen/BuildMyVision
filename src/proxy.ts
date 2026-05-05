@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { SESSION_COOKIE_NAME, LOGIN_PATH } from "@/lib/auth-constants";
+import { SESSION_COOKIE_NAME, LOGIN_PATH, SETUP_PATH } from "@/lib/auth-constants";
 import { verifySession } from "@/lib/auth";
+
+const PUBLIC_BOSS_PATHS = new Set<string>([LOGIN_PATH, SETUP_PATH]);
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Login-Seite nicht schützen
-  if (pathname === LOGIN_PATH) {
+  // Login- und Setup-Seite nicht schützen — Setup prüft eigenen Token
+  if (PUBLIC_BOSS_PATHS.has(pathname)) {
     return NextResponse.next();
   }
 
