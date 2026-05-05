@@ -23,7 +23,21 @@ export async function loginAction(
     return { error: "Admin-Zugangsdaten sind nicht konfiguriert." };
   }
 
-  if (username !== adminUsername || !verifyPassword(password, adminPasswordHash)) {
+  // TEMP-DEBUG: Diagnose-Logging (keine Klartext-Werte) — vor Commit entfernen
+  const usernameMatch = username === adminUsername;
+  const passwordMatch = verifyPassword(password, adminPasswordHash);
+  console.log("[login-debug]", {
+    inputUsernameLen: username.length,
+    envUsernameLen: adminUsername.length,
+    inputUsernameTrimEqualsEnv: username.trim() === adminUsername.trim(),
+    usernameMatch,
+    inputPasswordLen: password.length,
+    hashFormatHasColon: adminPasswordHash.includes(":"),
+    hashLen: adminPasswordHash.length,
+    passwordMatch,
+  });
+
+  if (!usernameMatch || !passwordMatch) {
     return { error: "Ungültige Anmeldedaten." };
   }
 
