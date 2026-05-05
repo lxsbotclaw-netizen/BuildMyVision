@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Datenschutzerklärung | BuildMyVision",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
+    <>
     <article className="px-4 py-12 md:py-16">
       <div className="mx-auto max-w-3xl">
         <nav className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
@@ -231,5 +233,7 @@ export default function DatenschutzPage() {
         </div>
       </div>
     </article>
+    <Footer />
+    </>
   );
 }

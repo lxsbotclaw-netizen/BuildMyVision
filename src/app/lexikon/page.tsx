@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getAllEntries, CATEGORY_LABELS, type LexikonCategory } from "@/data/lexikon";
 import { LexikonCard } from "@/components/lexikon/lexikon-card";
+import { Footer } from "@/components/footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -56,6 +57,7 @@ export default function LexikonPage() {
           })}
         </div>
       </section>
+      <Footer />
     </>
   );
 }

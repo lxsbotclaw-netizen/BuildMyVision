@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Startup-MVP Vorschau">
+  <defs>
+    <linearGradient id="bg-startup" x1="0" y1="0" x2="800" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#eef2ff" />
+      <stop offset="100%" stop-color="#fef3c7" />
+    </linearGradient>
+    <linearGradient id="acc-startup" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg-startup)" />
+  <rect x="40" y="40" width="120" height="20" rx="6" fill="#e0e7ff" />
+  <rect x="640" y="40" width="120" height="32" rx="8" fill="url(#acc-startup)" />
+  <rect x="100" y="160" width="600" height="42" rx="8" fill="#1e1b4b" opacity="0.85" />
+  <rect x="160" y="220" width="480" height="42" rx="8" fill="url(#acc-startup)" />
+  <rect x="200" y="290" width="200" height="40" rx="20" fill="#6366f1" />
+  <rect x="420" y="290" width="180" height="40" rx="20" fill="#fff" stroke="#cbd5e1" stroke-width="2" />
+  <g transform="translate(80, 380)">
+    <rect width="200" height="160" rx="14" fill="#fff" stroke="#e2e8f0" />
+    <rect x="20" y="20" width="40" height="40" rx="10" fill="#eef2ff" />
+    <rect x="20" y="80" width="120" height="10" rx="4" fill="#1e293b" />
+    <rect x="20" y="100" width="160" height="8" rx="4" fill="#cbd5e1" />
+    <rect x="20" y="118" width="140" height="8" rx="4" fill="#cbd5e1" />
+  </g>
+  <g transform="translate(300, 380)">
+    <rect width="200" height="160" rx="14" fill="#fff" stroke="#e2e8f0" />
+    <rect x="20" y="20" width="40" height="40" rx="10" fill="#fef3c7" />
+    <rect x="20" y="80" width="120" height="10" rx="4" fill="#1e293b" />
+    <rect x="20" y="100" width="160" height="8" rx="4" fill="#cbd5e1" />
+    <rect x="20" y="118" width="140" height="8" rx="4" fill="#cbd5e1" />
+  </g>
+  <g transform="translate(520, 380)">
+    <rect width="200" height="160" rx="14" fill="#fff" stroke="#e2e8f0" />
+    <rect x="20" y="20" width="40" height="40" rx="10" fill="#dcfce7" />
+    <rect x="20" y="80" width="120" height="10" rx="4" fill="#1e293b" />
+    <rect x="20" y="100" width="160" height="8" rx="4" fill="#cbd5e1" />
+    <rect x="20" y="118" width="140" height="8" rx="4" fill="#cbd5e1" />
+  </g>
+</svg>

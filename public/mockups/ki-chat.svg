@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="KI-Chat-Interface Vorschau">
+  <rect width="800" height="600" fill="#0f172a" />
+  <rect x="40" y="40" width="720" height="520" rx="16" fill="#1e293b" />
+  <rect x="60" y="60" width="180" height="14" rx="4" fill="#a78bfa" />
+  <rect x="60" y="84" width="120" height="10" rx="3" fill="#64748b" />
+  <g transform="translate(60, 130)">
+    <rect width="380" height="60" rx="14" fill="#334155" />
+    <rect x="16" y="14" width="320" height="10" rx="3" fill="#cbd5e1" />
+    <rect x="16" y="32" width="240" height="10" rx="3" fill="#cbd5e1" />
+  </g>
+  <g transform="translate(360, 220)">
+    <rect width="380" height="80" rx="14" fill="#7c3aed" />
+    <rect x="16" y="14" width="340" height="10" rx="3" fill="#fff" />
+    <rect x="16" y="32" width="320" height="10" rx="3" fill="#fff" />
+    <rect x="16" y="50" width="200" height="10" rx="3" fill="#fff" />
+  </g>
+  <g transform="translate(60, 320)">
+    <rect width="420" height="100" rx="14" fill="#334155" />
+    <rect x="16" y="14" width="180" height="10" rx="3" fill="#cbd5e1" />
+    <rect x="16" y="32" width="380" height="10" rx="3" fill="#cbd5e1" />
+    <rect x="16" y="50" width="280" height="10" rx="3" fill="#cbd5e1" />
+    <rect x="16" y="68" width="240" height="10" rx="3" fill="#cbd5e1" />
+  </g>
+  <g transform="translate(60, 470)">
+    <rect width="680" height="60" rx="30" fill="#0f172a" stroke="#475569" />
+    <rect x="20" y="22" width="200" height="14" rx="4" fill="#64748b" />
+    <circle cx="650" cy="30" r="22" fill="#a78bfa" />
+  </g>
+</svg>

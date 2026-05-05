@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Marketplace-Plattform Vorschau">
+  <rect width="800" height="600" fill="#f1f5f9" />
+  <rect width="800" height="80" fill="#0c4a6e" />
+  <rect x="40" y="30" width="120" height="20" rx="4" fill="#fff" />
+  <rect x="280" y="30" width="320" height="32" rx="16" fill="#fff" />
+  <rect x="640" y="30" width="120" height="32" rx="8" fill="#0ea5e9" />
+  <rect x="40" y="120" width="180" height="440" rx="14" fill="#fff" />
+  <rect x="60" y="140" width="100" height="14" rx="4" fill="#0f172a" />
+  <g fill="#cbd5e1">
+    <rect x="60" y="170" width="140" height="10" rx="3" />
+    <rect x="60" y="190" width="120" height="10" rx="3" />
+    <rect x="60" y="210" width="130" height="10" rx="3" />
+    <rect x="60" y="230" width="110" height="10" rx="3" />
+  </g>
+  <g transform="translate(240, 120)">
+    <rect width="170" height="210" rx="14" fill="#fff" />
+    <rect x="0" y="0" width="170" height="120" rx="14" fill="#7dd3fc" />
+    <rect x="14" y="140" width="100" height="14" rx="4" fill="#0f172a" />
+    <rect x="14" y="162" width="80" height="10" rx="3" fill="#94a3b8" />
+    <rect x="14" y="182" width="60" height="14" rx="4" fill="#0ea5e9" />
+  </g>
+  <g transform="translate(430, 120)">
+    <rect width="170" height="210" rx="14" fill="#fff" />
+    <rect x="0" y="0" width="170" height="120" rx="14" fill="#fbbf24" />
+    <rect x="14" y="140" width="100" height="14" rx="4" fill="#0f172a" />
+    <rect x="14" y="162" width="80" height="10" rx="3" fill="#94a3b8" />
+    <rect x="14" y="182" width="60" height="14" rx="4" fill="#0ea5e9" />
+  </g>
+  <g transform="translate(620, 120)">
+    <rect width="160" height="210" rx="14" fill="#fff" />
+    <rect x="0" y="0" width="160" height="120" rx="14" fill="#a78bfa" />
+    <rect x="14" y="140" width="100" height="14" rx="4" fill="#0f172a" />
+    <rect x="14" y="162" width="80" height="10" rx="3" fill="#94a3b8" />
+    <rect x="14" y="182" width="60" height="14" rx="4" fill="#0ea5e9" />
+  </g>
+  <g transform="translate(240, 350)">
+    <rect width="170" height="210" rx="14" fill="#fff" />
+    <rect x="0" y="0" width="170" height="120" rx="14" fill="#f472b6" />
+    <rect x="14" y="140" width="100" height="14" rx="4" fill="#0f172a" />
+    <rect x="14" y="162" width="80" height="10" rx="3" fill="#94a3b8" />
+    <rect x="14" y="182" width="60" height="14" rx="4" fill="#0ea5e9" />
+  </g>
+  <g transform="translate(430, 350)">
+    <rect width="170" height="210" rx="14" fill="#fff" />
+    <rect x="0" y="0" width="170" height="120" rx="14" fill="#34d399" />
+    <rect x="14" y="140" width="100" height="14" rx="4" fill="#0f172a" />
+    <rect x="14" y="162" width="80" height="10" rx="3" fill="#94a3b8" />
+    <rect x="14" y="182" width="60" height="14" rx="4" fill="#0ea5e9" />
+  </g>
+  <g transform="translate(620, 350)">
+    <rect width="160" height="210" rx="14" fill="#fff" />
+    <rect x="0" y="0" width="160" height="120" rx="14" fill="#fb923c" />
+    <rect x="14" y="140" width="100" height="14" rx="4" fill="#0f172a" />
+    <rect x="14" y="162" width="80" height="10" rx="3" fill="#94a3b8" />
+    <rect x="14" y="182" width="60" height="14" rx="4" fill="#0ea5e9" />
+  </g>
+</svg>

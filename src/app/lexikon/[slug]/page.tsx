@@ -8,6 +8,7 @@ import {
 } from "@/data/lexikon";
 import { LexikonRelated } from "@/components/lexikon/lexikon-related";
 import { LexikonCta } from "@/components/lexikon/lexikon-cta";
+import { Footer } from "@/components/footer";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -48,6 +49,7 @@ export default async function LexikonEntryPage({ params }: PageProps) {
   };
 
   return (
+    <>
     <article className="px-4 py-12 md:py-16">
       <script
         type="application/ld+json"
@@ -144,5 +146,7 @@ export default async function LexikonEntryPage({ params }: PageProps) {
         <LexikonCta />
       </div>
     </article>
+    <Footer />
+    </>
   );
 }

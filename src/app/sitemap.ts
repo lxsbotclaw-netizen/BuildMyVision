@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllEntries } from "@/data/lexikon";
+import { MOCKUPS } from "@/data/mockups";
 import { getBaseUrl } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -7,6 +8,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const lexikonEntries = getAllEntries().map((entry) => ({
     url: `${baseUrl}/lexikon/${entry.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const mockupEntries = MOCKUPS.map((mockup) => ({
+    url: `${baseUrl}/showcase/${mockup.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
@@ -20,11 +28,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${baseUrl}/showcase`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/lexikon`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    ...mockupEntries,
     ...lexikonEntries,
   ];
 }

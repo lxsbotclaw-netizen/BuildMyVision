@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { waitlistEntries } from "@/db/schema";
 import { waitlistSchema } from "@/validations/waitlist";
+import { sendWaitlistNotification } from "@/lib/notifications";
 
 export async function POST(request: Request) {
   try {
@@ -51,6 +52,21 @@ export async function POST(request: Request) {
       wizardSelections: wizardSelections || null,
       privacyAccepted: new Date(),
     });
+
+    // Mail-Benachrichtigung — Fehler hier dürfen den Erfolg nicht blockieren
+    try {
+      await sendWaitlistNotification({
+        name,
+        email,
+        phone,
+        address,
+        contactTypes: contactTypes.join(", "),
+        projectDescription,
+        wizardSelections,
+      });
+    } catch (mailError) {
+      console.error("Waitlist Mail-Benachrichtigung fehlgeschlagen:", mailError);
+    }
 
     return NextResponse.json(
       { message: "Deine Anfrage wurde erfolgreich gespeichert. Wir melden uns bei dir!" },

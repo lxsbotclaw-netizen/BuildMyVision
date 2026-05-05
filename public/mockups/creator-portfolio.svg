@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Creator-Portfolio Vorschau">
+  <defs>
+    <linearGradient id="creator-bg" x1="0" y1="0" x2="800" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fdf2f8" />
+      <stop offset="100%" stop-color="#fef3c7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#creator-bg)" />
+  <circle cx="200" cy="200" r="120" fill="#f472b6" />
+  <rect x="360" y="140" width="380" height="36" rx="8" fill="#0f172a" />
+  <rect x="360" y="190" width="280" height="20" rx="6" fill="#0f172a" opacity="0.6" />
+  <rect x="360" y="240" width="160" height="44" rx="22" fill="#0f172a" />
+  <g transform="translate(40, 380)">
+    <rect width="220" height="180" rx="14" fill="#fff" />
+    <rect x="0" y="0" width="220" height="120" rx="14" fill="#fbcfe8" />
+  </g>
+  <g transform="translate(290, 380)">
+    <rect width="220" height="180" rx="14" fill="#fff" />
+    <rect x="0" y="0" width="220" height="120" rx="14" fill="#fde68a" />
+  </g>
+  <g transform="translate(540, 380)">
+    <rect width="220" height="180" rx="14" fill="#fff" />
+    <rect x="0" y="0" width="220" height="120" rx="14" fill="#a78bfa" />
+  </g>
+</svg>

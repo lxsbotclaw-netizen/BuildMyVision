@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Impressum | BuildMyVision",
@@ -8,6 +9,7 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
   return (
+    <>
     <article className="px-4 py-12 md:py-16">
       <div className="mx-auto max-w-3xl">
         <nav className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
@@ -54,7 +56,7 @@ export default function ImpressumPage() {
               Umsatzsteuer-Identifikationsnummer gemäß §27a
               Umsatzsteuergesetz:
               <br />
-              [USt-IdNr. oder „Nicht vorhanden / Kleinunternehmerregelung"]
+              [USt-IdNr. oder &bdquo;Nicht vorhanden / Kleinunternehmerregelung&ldquo;]
             </p>
           </section>
 
@@ -118,5 +120,7 @@ export default function ImpressumPage() {
         </div>
       </div>
     </article>
+    <Footer />
+    </>
   );
 }

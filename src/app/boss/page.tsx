@@ -4,14 +4,6 @@ import { waitlistEntries } from "@/db/schema";
 import { desc } from "drizzle-orm";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 
 /** Kontakttyp-Labels für die Anzeige */
 const CONTACT_TYPE_LABELS: Record<string, string> = {
@@ -21,19 +13,26 @@ const CONTACT_TYPE_LABELS: Record<string, string> = {
   creator: "Creator / Influencer",
 };
 
-/** Wizard-Auswahl aus JSON-String lesbar machen */
-function formatWizardSelections(raw: string | null): string | null {
-  if (!raw) return null;
+/** Wizard-Feld-Keys → Anzeige-Label im Admin (Reihenfolge wird beibehalten) */
+const WIZARD_FIELD_LABELS: Record<string, string> = {
+  projectType: "Projekttyp",
+  purpose: "Zweck",
+  status: "Status",
+};
+
+type WizardItem = { label: string; value: string };
+
+/** Liest Wizard-Auswahl aus JSON-String und liefert nur menschlich lesbare Stichpunkte */
+function getWizardItems(raw: string | null): WizardItem[] {
+  if (!raw) return [];
   try {
-    const parsed = JSON.parse(raw);
-    if (typeof parsed === "object" && parsed !== null) {
-      return Object.entries(parsed)
-        .map(([key, value]) => `${key}: ${value}`)
-        .join(", ");
-    }
-    return raw;
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    return Object.entries(WIZARD_FIELD_LABELS).flatMap(([key, label]) => {
+      const value = parsed[`${key}Label`] ?? parsed[key];
+      return value ? [{ label, value: String(value) }] : [];
+    });
   } catch {
-    return raw;
+    return [];
   }
 }
 
@@ -73,110 +72,79 @@ export default async function BossPage() {
           </CardContent>
         </Card>
       ) : (
-        <>
-          {/* Desktop-Tabelle */}
-          <Card className="hidden md:block">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>E-Mail</TableHead>
-                  <TableHead>Telefon</TableHead>
-                  <TableHead>Typ</TableHead>
-                  <TableHead>Erstellt am</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {entries.map((entry) => (
-                  <TableRow key={entry.id}>
-                    <TableCell className="font-medium">{entry.name}</TableCell>
-                    <TableCell>{entry.email}</TableCell>
-                    <TableCell>{entry.phone || "–"}</TableCell>
-                    <TableCell>
-                      <div className="flex flex-wrap gap-1">
-                        {entry.contactTypes.split(",").map((type) => (
-                          <Badge key={type} variant="secondary">
-                            {CONTACT_TYPE_LABELS[type] || type}
-                          </Badge>
-                        ))}
-                      </div>
-                    </TableCell>
-                    <TableCell className="whitespace-nowrap">
-                      {formatDate(entry.createdAt)}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
-
-          {/* Mobile-Karten */}
-          <div className="flex flex-col gap-4 md:hidden">
-            {entries.map((entry) => (
+        <div className="flex flex-col gap-4">
+          {entries.map((entry) => {
+            const wizardItems = getWizardItems(entry.wizardSelections);
+            return (
               <Card key={entry.id}>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-base">{entry.name}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{entry.email}</p>
-                </CardHeader>
-                <CardContent className="space-y-2 text-sm">
-                  {entry.phone && (
-                    <p><span className="font-medium">Telefon:</span> {entry.phone}</p>
-                  )}
-                  {entry.address && (
-                    <p><span className="font-medium">Anschrift:</span> {entry.address}</p>
-                  )}
-                  <div className="flex flex-wrap gap-1">
-                    {entry.contactTypes.split(",").map((type) => (
-                      <Badge key={type} variant="secondary">
-                        {CONTACT_TYPE_LABELS[type] || type}
-                      </Badge>
-                    ))}
+                <CardHeader className="pb-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="space-y-1">
+                      <CardTitle className="text-lg">{entry.name}</CardTitle>
+                      <p className="text-xs text-muted-foreground">
+                        Eingegangen am {formatDate(entry.createdAt)}
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-1">
+                      {entry.contactTypes.split(",").map((type) => (
+                        <Badge key={type} variant="secondary">
+                          {CONTACT_TYPE_LABELS[type] || type}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                  {formatWizardSelections(entry.wizardSelections) && (
-                    <p><span className="font-medium">Wizard:</span> {formatWizardSelections(entry.wizardSelections)}</p>
+                </CardHeader>
+
+                <CardContent className="space-y-5">
+                  <dl className="grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+                    <div>
+                      <dt className="text-muted-foreground">E-Mail</dt>
+                      <dd className="font-medium break-all">{entry.email}</dd>
+                    </div>
+                    {entry.phone && (
+                      <div>
+                        <dt className="text-muted-foreground">Telefon</dt>
+                        <dd className="font-medium">{entry.phone}</dd>
+                      </div>
+                    )}
+                    {entry.address && (
+                      <div className="sm:col-span-2">
+                        <dt className="text-muted-foreground">Adresse</dt>
+                        <dd className="font-medium whitespace-pre-wrap">{entry.address}</dd>
+                      </div>
+                    )}
+                  </dl>
+
+                  {wizardItems.length > 0 && (
+                    <div className="border-t pt-4">
+                      <h3 className="mb-2 text-sm font-semibold">Wizard-Auswahl</h3>
+                      <ul className="space-y-1 text-sm">
+                        {wizardItems.map((item) => (
+                          <li key={item.label} className="flex gap-2">
+                            <span className="text-muted-foreground">•</span>
+                            <span>
+                              <span className="text-muted-foreground">{item.label}:</span>{" "}
+                              <span className="font-medium">{item.value}</span>
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
+
                   {entry.projectDescription && (
-                    <p><span className="font-medium">Beschreibung:</span> {entry.projectDescription}</p>
+                    <div className="border-t pt-4">
+                      <h3 className="mb-2 text-sm font-semibold">Projektbeschreibung</h3>
+                      <p className="whitespace-pre-wrap text-sm text-muted-foreground">
+                        {entry.projectDescription}
+                      </p>
+                    </div>
                   )}
-                  <p className="text-xs text-muted-foreground">
-                    Erstellt: {formatDate(entry.createdAt)}
-                  </p>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-
-          {/* Detail-Bereich Desktop: Projektbeschreibung + Wizard unter der Tabelle */}
-          <div className="hidden flex-col gap-4 md:flex">
-            {entries
-              .filter((e) => e.projectDescription || e.wizardSelections || e.address)
-              .map((entry) => (
-                <Card key={entry.id}>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-base">
-                      {entry.name} — Details
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2 text-sm">
-                    {entry.address && (
-                      <p><span className="font-medium">Anschrift:</span> {entry.address}</p>
-                    )}
-                    {formatWizardSelections(entry.wizardSelections) && (
-                      <p><span className="font-medium">Wizard-Auswahl:</span> {formatWizardSelections(entry.wizardSelections)}</p>
-                    )}
-                    {entry.projectDescription && (
-                      <div>
-                        <p className="font-medium">Projektbeschreibung:</p>
-                        <p className="mt-1 whitespace-pre-wrap text-muted-foreground">
-                          {entry.projectDescription}
-                        </p>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-          </div>
-        </>
+            );
+          })}
+        </div>
       )}
     </div>
   );

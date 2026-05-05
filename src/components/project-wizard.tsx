@@ -68,37 +68,29 @@ interface WizardState {
   statusLabel: string;
 }
 
+const EMPTY_WIZARD_STATE: WizardState = {
+  projectType: "",
+  projectTypeLabel: "",
+  purpose: "",
+  purposeLabel: "",
+  status: "",
+  statusLabel: "",
+};
+
+function parseWizardValue(val: string): WizardState {
+  if (!val) return EMPTY_WIZARD_STATE;
+  try {
+    return JSON.parse(val);
+  } catch {
+    return EMPTY_WIZARD_STATE;
+  }
+}
+
 export function ProjectWizard({ value, onChange }: ProjectWizardProps) {
   const [step, setStep] = useState<WizardStep>(value ? "done" : "type");
   const [selections, setSelections] = useState<WizardState>(() =>
     parseWizardValue(value),
   );
-
-  function parseWizardValue(val: string): WizardState {
-    if (!val) {
-      return {
-        projectType: "",
-        projectTypeLabel: "",
-        purpose: "",
-        purposeLabel: "",
-        status: "",
-        statusLabel: "",
-      };
-    }
-    // Versuche gespeicherten Wert zu parsen
-    try {
-      return JSON.parse(val);
-    } catch {
-      return {
-        projectType: "",
-        projectTypeLabel: "",
-        purpose: "",
-        purposeLabel: "",
-        status: "",
-        statusLabel: "",
-      };
-    }
-  }
 
   function selectType(typeValue: string, typeLabel: string) {
     const next: WizardState = {
