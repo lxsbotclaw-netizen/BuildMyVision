@@ -127,7 +127,7 @@ export default async function ShowcaseDetailPage({
                 Interesse an dieser Lösung?
               </h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Wir passen jedes Mockup an deine Marke und Anforderungen an.
+                Wir passen jedes Konzept an deine Marke und Anforderungen an.
                 Beschreib&apos; dein Vorhaben in der Warteliste — wir melden
                 uns persönlich.
               </p>
@@ -143,7 +143,7 @@ export default async function ShowcaseDetailPage({
 
           <section className="mt-16 border-t border-border pt-12">
             <h2 className="mb-6 text-xl font-bold tracking-tight">
-              Weitere Mockups
+              Weitere Konzepte
             </h2>
             <div className="grid gap-4 sm:grid-cols-3">
               {otherMockups.map((other) => (

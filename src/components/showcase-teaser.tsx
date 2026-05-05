@@ -22,15 +22,15 @@ export function ShowcaseTeaser() {
               Was wir für dich bauen können
             </h2>
             <p className="mt-4 text-base text-muted-foreground md:text-lg">
-              Acht Mockup-Konzepte für die häufigsten Use-Cases. Zwei davon
-              sind als interaktive Demo begehbar.
+              Acht Konzepte zur Inspiration für die häufigsten Use-Cases. Zwei
+              davon sind als interaktive Demo begehbar.
             </p>
           </div>
           <Link
             href="/showcase"
             className="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2.5 text-sm font-semibold transition-colors hover:border-brand/50 hover:bg-card"
           >
-            Alle Mockups
+            Alle Konzepte
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

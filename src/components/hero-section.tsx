@@ -42,7 +42,7 @@ export function HeroSection() {
             href="/showcase"
             className="inline-flex h-12 items-center gap-2 rounded-md border border-border bg-background/60 px-6 text-sm font-semibold text-foreground backdrop-blur transition-all hover:border-brand/50 hover:bg-background"
           >
-            Mockups ansehen
+            Inspiration holen
           </Link>
         </div>
 

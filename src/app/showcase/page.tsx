@@ -6,9 +6,9 @@ import { MockupCard } from "@/components/showcase/mockup-card";
 import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "Mockups & Showcase | BuildMyVision",
+  title: "Inspiration | BuildMyVision",
   description:
-    "Beispiel-Designs und Lösungs-Templates für Startups, Unternehmen und Creator. Von Landing Pages bis zu SaaS-Dashboards.",
+    "Konzepte und Beispiele zur Inspiration für Startups, Unternehmen und Creator. Von Landing Pages bis zu SaaS-Dashboards.",
 };
 
 export default function ShowcasePage() {
@@ -17,14 +17,14 @@ export default function ShowcasePage() {
       <section className="border-b border-border px-4 py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-brand">
-            Showcase
+            Inspiration
           </p>
           <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
             Greifbare Beispiele.{" "}
             <span className="text-gradient-brand">Echte Lösungen.</span>
           </h1>
           <p className="mt-5 text-lg text-muted-foreground md:text-xl">
-            Acht Mockup-Konzepte für die häufigsten Use-Cases — vom
+            Acht Konzepte zur Inspiration für die häufigsten Use-Cases — vom
             Startup-MVP bis zur Marketplace-Plattform. Zwei davon sind
             interaktiv begehbar.
           </p>

@@ -36,7 +36,7 @@ export function Footer() {
                   href="/showcase"
                   className="transition-colors hover:text-foreground"
                 >
-                  Mockups
+                  Inspiration
                 </Link>
               </li>
               <li>
